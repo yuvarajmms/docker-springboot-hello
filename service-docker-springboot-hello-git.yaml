@@ -1,0 +1,43 @@
+﻿kind: Service
+apiVersion: v1
+metadata:
+  name: docker-springboot-hello-git
+  namespace: docker-springboot-hello
+  selfLink: >-
+    /api/v1/namespaces/docker-springboot-hello/services/docker-springboot-hello-git
+  uid: 1bfd44be-e630-4441-9f49-e2a4d2862ec9
+  resourceVersion: '169383942'
+  creationTimestamp: '2020-03-11T16:24:43Z'
+  labels:
+    app: docker-springboot-hello-git
+    app.kubernetes.io/component: docker-springboot-hello-git
+    app.kubernetes.io/instance: docker-springboot-hello-git
+    app.kubernetes.io/name: java
+    app.kubernetes.io/part-of: docker-springboot-hello-git-app
+    app.openshift.io/runtime: java
+    app.openshift.io/runtime-version: '11'
+  annotations:
+    app.openshift.io/vcs-ref: master
+    app.openshift.io/vcs-uri: 'https://github.com/yuvarajmms/docker-springboot-hello.git'
+spec:
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: 8443-tcp
+      protocol: TCP
+      port: 8443
+      targetPort: 8443
+    - name: 8778-tcp
+      protocol: TCP
+      port: 8778
+      targetPort: 8778
+  selector:
+    app: docker-springboot-hello-git
+    deploymentconfig: docker-springboot-hello-git
+  clusterIP: 172.30.239.53
+  type: ClusterIP
+  sessionAffinity: None
+status:
+  loadBalancer: {}

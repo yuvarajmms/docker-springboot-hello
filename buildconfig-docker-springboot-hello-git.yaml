@@ -1,0 +1,60 @@
+﻿kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: docker-springboot-hello-git
+  namespace: docker-springboot-hello
+  selfLink: >-
+    /apis/build.openshift.io/v1/namespaces/docker-springboot-hello/buildconfigs/docker-springboot-hello-git
+  uid: 0846c7a5-1831-4976-aff4-f29802796610
+  resourceVersion: '169403011'
+  creationTimestamp: '2020-03-11T16:24:43Z'
+  labels:
+    app: docker-springboot-hello-git
+    app.kubernetes.io/component: docker-springboot-hello-git
+    app.kubernetes.io/instance: docker-springboot-hello-git
+    app.kubernetes.io/name: java
+    app.kubernetes.io/part-of: docker-springboot-hello-git-app
+    app.openshift.io/runtime: java
+    app.openshift.io/runtime-version: '11'
+  annotations:
+    app.openshift.io/vcs-ref: master
+    app.openshift.io/vcs-uri: 'https://github.com/yuvarajmms/docker-springboot-hello.git'
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'docker-springboot-hello-git:latest'
+  resources: {}
+  successfulBuildsHistoryLimit: 5
+  failedBuildsHistoryLimit: 5
+  strategy:
+    type: Source
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        namespace: openshift
+        name: 'java:11'
+  postCommit: {}
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/yuvarajmms/docker-springboot-hello.git'
+    contextDir: /
+  triggers:
+    - type: Generic
+      generic:
+        secretReference:
+          name: docker-springboot-hello-git-generic-webhook-secret
+    - type: GitHub
+      github:
+        secretReference:
+          name: docker-springboot-hello-git-github-webhook-secret
+    - type: ImageChange
+      imageChange:
+        lastTriggeredImageID: >-
+          image-registry.openshift-image-registry.svc:5000/openshift/java@sha256:ab7aaa422aaec96a97c403eeb0cd3a6dfec76428944a77193fb2e3bfbecf8106
+    - type: ConfigChange
+  runPolicy: Serial
+status:
+  lastVersion: 3

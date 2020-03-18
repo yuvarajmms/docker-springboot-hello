@@ -1,0 +1,41 @@
+﻿kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: docker-springboot-hello-git
+  namespace: docker-springboot-hello
+  selfLink: >-
+    /apis/route.openshift.io/v1/namespaces/docker-springboot-hello/routes/docker-springboot-hello-git
+  uid: 10e2f924-5940-4ebb-8dfa-ae0726b7b400
+  resourceVersion: '169383956'
+  creationTimestamp: '2020-03-11T16:24:43Z'
+  labels:
+    app: docker-springboot-hello-git
+    app.kubernetes.io/component: docker-springboot-hello-git
+    app.kubernetes.io/instance: docker-springboot-hello-git
+    app.kubernetes.io/name: java
+    app.kubernetes.io/part-of: docker-springboot-hello-git-app
+    app.openshift.io/runtime: java
+    app.openshift.io/runtime-version: '11'
+  annotations:
+    openshift.io/host.generated: 'true'
+spec:
+  host: >-
+    docker-springboot-hello-git-docker-springboot-hello.apps.us-east-1.starter.openshift-online.com
+  to:
+    kind: Service
+    name: docker-springboot-hello-git
+    weight: 100
+  port:
+    targetPort: 8080-tcp
+  wildcardPolicy: None
+status:
+  ingress:
+    - host: >-
+        docker-springboot-hello-git-docker-springboot-hello.apps.us-east-1.starter.openshift-online.com
+      routerName: default
+      conditions:
+        - type: Admitted
+          status: 'True'
+          lastTransitionTime: '2020-03-11T16:24:43Z'
+      wildcardPolicy: None
+      routerCanonicalHostname: apps.us-east-1.starter.openshift-online.com
